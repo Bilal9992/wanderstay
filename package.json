@@ -1,17 +1,18 @@
 {
-  "engines": {
-  "node": "23.11.0"
-},
-  "name": "majorproject",
+  "name": "wanderstay",
   "version": "1.0.0",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+  "description": "WanderStay - Hotel Listing Web App",
+  "main": "app.js",
+  "engines": {
+    "node": "18.x"
   },
-  "keywords": [],
-  "author": "",
+  "scripts": {
+    "start": "node app.js",
+    "dev": "nodemon app.js"
+  },
+  "keywords": ["hotel", "booking", "travel", "nodejs", "mongodb"],
+  "author": "Bilal",
   "license": "ISC",
-  "description": "",
   "dependencies": {
     "cloudinary": "^1.37.2",
     "connect-flash": "^0.1.1",
@@ -32,6 +33,7 @@
     "passport-local-mongoose": "^8.0.0"
   },
   "devDependencies": {
+    "nodemon": "^3.1.0",
     "prettier": "^3.6.2",
     "prettier-plugin-ejs": "^1.0.3"
   }
