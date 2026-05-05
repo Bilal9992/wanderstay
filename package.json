@@ -4,7 +4,7 @@
   "description": "WanderStay - Hotel Listing Web App",
   "main": "app.js",
   "engines": {
-    "node": "18.x"
+    "node": "20.x"
   },
   "scripts": {
     "start": "node app.js",
