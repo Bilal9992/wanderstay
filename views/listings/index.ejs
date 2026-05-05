@@ -1,0 +1,161 @@
+<% layout("/layouts/boilerplate") %>
+
+<!-- Filter Bar Styles -->
+<style>
+#filters {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  gap: 0.8rem;
+  margin-top: 1.5rem;
+}
+
+.filter {
+  text-align: center;
+  cursor: pointer;
+  opacity: 0.8;
+  transition: all 0.3s ease;
+  padding: 0.4rem 0.6rem;
+  border-radius: 0.5rem;
+  min-width: 70px;
+}
+
+#filters .filter:hover {
+  opacity: 1;
+  transform: translateY(-4px) scale(1.05);
+  background-color: rgba(255, 90, 95, 0.1);
+}
+
+.filter i {
+  font-size: 1.4rem;
+  color: black;
+  margin-bottom: 0.2rem;
+}
+
+.filter p {
+  font-size: 0.8rem;
+  margin: 0;
+}
+
+.tax-toggle {
+  border: 1px solid black;
+  border-radius: 1rem;
+  height: 3.5rem;
+  padding: 1rem;
+  margin-left: 5rem;
+}
+</style>
+
+<!-- Filter Bar -->
+<div id="filters">
+  <div class="filter">
+    <i class="fa-solid fa-fire"></i>
+    <p>Trending</p>
+  </div>
+
+  <div class="filter">
+    <i class="fa-solid fa-bed"></i>
+    <p>Bed</p>
+  </div>
+
+  <div class="filter">
+    <i class="fa-solid fa-city"></i>
+    <p>Iconic Cities</p>
+  </div>
+
+  <div class="filter">
+    <i class="fa-solid fa-mountain"></i>
+    <p>Mountains</p>
+  </div>
+
+  <div class="filter">
+    <i class="fa-solid fa-chess-rook"></i>
+    <p>Castles</p>
+  </div>
+
+  <div class="filter">
+    <i class="fa-solid fa-water-ladder"></i>
+    <p>Pools</p>
+  </div>
+
+  <div class="filter">
+    <i class="fa-solid fa-campground"></i>
+    <p>Camping</p>
+  </div>
+
+  <div class="filter">
+    <i class="fa-solid fa-tractor"></i>
+    <p>Farms</p>
+  </div>
+
+  <div class="filter">
+    <i class="fa-solid fa-icicles"></i>
+    <p>Arctic</p>
+  </div>
+
+  <div class="tax-toggle">
+    <div class="form-check-reverse form-switch">
+      <input
+        class="form-check-input"
+        type="checkbox"
+        role="switch"
+        id="flexSwitchCheckDefault"
+      />
+      <label class="form-check-label" for="flexSwitchCheckDefault">
+        Show total after taxes
+      </label>
+    </div>
+  </div>
+</div>
+
+<!-- Listings Grid -->
+<div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1 g-3 mt-2">
+  <% for (let listing of allListings) { %>
+    <div class="card col listing-card">
+      <a
+        href="/listings/<%= listing._id %>"
+        class="text-decoration-none text-dark"
+      >
+        <div class="card h-100 shadow-sm">
+          <img
+            src="<%= listing.image.url %>"
+            alt="<%= listing.title %>"
+            class="card-img-top"
+            style="height: 20rem; object-fit: cover;"
+          />
+          <div class="card-body">
+            <h5 class="card-title mb-1"><%= listing.title %></h5>
+            <p class="card-text text-muted mb-0 price-line">
+              ₹ <span class="price"><%= listing.price.toLocaleString("en-IN") %></span> / night
+            </p>
+          </div>
+        </div>
+      </a>
+    </div>
+  <% } %>
+</div>
+
+<!-- GST Toggle Script -->
+<script>
+  const taxSwitch = document.getElementById("flexSwitchCheckDefault");
+
+  taxSwitch.addEventListener("change", () => {
+    const prices = document.getElementsByClassName("price");
+
+    for (let i = 0; i < prices.length; i++) {
+      const basePrice = Number(prices[i].getAttribute("data-base")) || Number(prices[i].textContent.replace(/,/g, ""));
+      if (!prices[i].getAttribute("data-base")) {
+        prices[i].setAttribute("data-base", basePrice);
+      }
+
+      if (taxSwitch.checked) {
+        // Calculate 18% GST
+        const gstPrice = Math.round(basePrice * 1.18);
+        prices[i].textContent = gstPrice.toLocaleString("en-IN") + " (after 18% GST)";
+      } else {
+        // Back to base price
+        prices[i].textContent = basePrice.toLocaleString("en-IN");
+      }
+    }
+  });
+</script>

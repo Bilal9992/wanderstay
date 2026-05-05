@@ -1,0 +1,60 @@
+<body>
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-md navbar-light bg-light border-bottom sticky-top shadow-sm">
+    <div class="container-fluid">
+      <!-- Brand (icon only) -->
+      <a class="navbar-brand fw-bold" href="/listings">
+        <i class="fa-regular fa-compass"></i>
+      </a>
+
+      <!-- Mobile Toggle -->
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#navbarNavAltMarkup"
+        aria-controls="navbarNavAltMarkup"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <!-- Navbar Content -->
+      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <!-- Left Links -->
+        <div class="navbar-nav me-auto">
+          <a class="nav-link" href="/listings">Explore</a>
+        </div>
+
+        <!-- Search Bar -->
+        <form class="d-flex mx-auto" role="search" action="/listings" method="get" style="max-width: 300px;">
+          <input
+            class="form-control me-2"
+            type="search"
+            name="q"
+            placeholder="Search listings..."
+            aria-label="Search"
+          />
+          <button class="btn btn-outline-danger" type="submit">
+            <i class="fa-solid fa-magnifying-glass"></i>
+          </button>
+        </form>
+
+        <!-- Right Links -->
+        <div class="navbar-nav ms-auto align-items-center">
+          <a class="nav-link" href="/listings/new">Airbnb your home</a>
+
+          <% if (!currUser) { %>
+            <a class="nav-link" href="/signup"><b>Sign Up</b></a>
+            <a class="nav-link" href="/login"><b>Log In</b></a>
+          <% } else { %>
+            <span class="nav-link">Hello, <%= currUser.username %></span>
+            <a class="nav-link" href="/logout"><b>Log Out</b></a>
+          <% } %>
+        </div>
+      </div>
+    </div>
+  </nav>
+</body>
+</html>
