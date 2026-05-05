@@ -25,7 +25,7 @@ const dbUrl = process.env.ATLASDB_URL;
 const secret = process.env.SECRET || "fallbackSecret";
 const port = process.env.PORT || 8080;
 
-// ✅ Safety check (VERY IMPORTANT)
+// ✅ Safety check
 if (!dbUrl) {
   console.error("❌ ATLASDB_URL is missing in environment variables");
   process.exit(1);
@@ -102,12 +102,12 @@ app.use("/listings", listingRouter);
 app.use("/listings/:id/reviews", reviewRouter);
 app.use("/", userRouter);
 
-// ✅ Home route (optional)
+// ✅ FIXED Homepage (IMPORTANT)
 app.get("/", (req, res) => {
-  res.send("🚀 WanderStay is running!");
+  res.redirect("/listings");
 });
 
-// ✅ 404 handler
+// ✅ 404 handler (Express 5 safe)
 app.use((req, res, next) => {
   next(new ExpressError(404, "Page Not Found"));
 });
